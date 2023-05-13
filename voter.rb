@@ -1,6 +1,9 @@
 require 'sinatra'
-votes = {}
-get '/' do
+
+class Voter < Sinatra::Base
+  
+  votes = {}
+  get '/' do
     @title = 'Добре дошли в машината за гласуване!'
     erb :index
   end
@@ -8,9 +11,9 @@ get '/' do
   get '/cast' do
     @title = 'Благодарим за вашия глас!'
     @vote  = params['vote']
-  
+    
     votes[@vote] = votes.fetch(@vote, 0) + 1
-  
+    
     erb :cast
   end
 
@@ -19,3 +22,4 @@ get '/' do
     @votes = votes
     erb :results
   end
+end
